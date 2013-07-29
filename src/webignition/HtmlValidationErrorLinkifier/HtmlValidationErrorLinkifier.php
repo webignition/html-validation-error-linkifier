@@ -11,11 +11,11 @@ class HtmlValidationErrorLinkifier {
     private $normalForm = '';
     private $linkifiedForm = '';
     
-    public function linkify($normalForm) {
+    public function linkify($normalForm, $parameters = null) {
         $this->normalForm = $normalForm;
         $this->linkified = $normalForm;
         
-        $this->replacePlaceholders();
+        $this->replacePlaceholders($parameters);
         $this->replaceAmpWithAmpserandPlaceholder();
         $this->removePunctuation();
         $this->replaceSpaces();
@@ -41,9 +41,9 @@ class HtmlValidationErrorLinkifier {
     }
     
     
-    private function  replacePlaceholders() {
+    private function  replacePlaceholders($parameters = null) {
         $placeholders = $this->getPlaceholders();
-        $placeholderValues = $this->getPlaceholderValues();
+        $placeholderValues = $this->getPlaceholderValues($parameters);
        
         $this->linkifiedForm = strtolower(str_replace($placeholders, $placeholderValues, $this->normalForm));        
     }
@@ -86,7 +86,7 @@ class HtmlValidationErrorLinkifier {
         return count($this->getPlaceholders());
     }
     
-    private function getPlaceholderValues() {
+    private function getPlaceholderValues($parameters = null) {
         $start = ord(self::START_PLACEHOLDER_CHARACTER);
         $placeholderCount = $this->getPlaceholderCount();
 
@@ -98,6 +98,14 @@ class HtmlValidationErrorLinkifier {
 
         for ($index = $start; $index < $start + $placeholderCount; $index++) {
             $placeholderValues[] = chr($index);
+        }
+        
+        if (is_array($parameters)) {
+            foreach ($parameters as $key => $value) {
+                if (isset($placeholderValues[$key])) {
+                    $placeholderValues[$key] = $value;
+                }
+            }
         }
 
         return $placeholderValues;     
