@@ -94,7 +94,7 @@ class HtmlValidationErrorLinkifier {
             $start = $start - $placeholderCount + 3;
         }
 
-        $placeholderValues = [];
+        $placeholderValues = array();
 
         for ($index = $start; $index < $start + $placeholderCount; $index++) {
             $placeholderValues[] = chr($index);
