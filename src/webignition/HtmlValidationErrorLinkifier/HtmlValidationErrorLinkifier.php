@@ -23,42 +23,7 @@ class HtmlValidationErrorLinkifier {
         $this->replaceAmpersandPlaceholder();
         $this->replaceDoubleHyphens();        
         
-        return $this->linkifiedForm;
-        
-        //$this->getPlaceholders();
-        //var_dump($normalForm, $this->getPlaceholderValues());
-        
-//        $placeholders = $this->getPlaceholders();
-//        $placeholderValues = $this->getPlaceholderValues();
-//        
-//        $linkified = strtolower(str_replace($placeholders, $placeholderValues, $normalForm));
-//        $linkified = str_replace(array(
-//            ' ',
-//            
-//        ), array(
-//            '-'
-//        ), $linkified);
-//        
-//        //$temp = preg_replace('/%[0-9]/', $this->getPlaceholderValues(), $this->normalForm);
-        var_dump($this->linkifiedForm);
-        exit();
-        
-/**
-    file_name = replace_global(' ', '-', file_name);
-    file_name = replace_global(',', '', file_name);
-    file_name = replace_global('.', '', file_name);
-    file_name = replace_global(':', '', file_name);
-    file_name = replace_global(';', '', file_name);
-    file_name = replace_global('"', '', file_name);
-    file_name = replace_global('&amp', 'ampsersand_placeholder', file_name);
-    file_name = replace_global('&', 'ampsersand', file_name);
-    file_name = replace_global('ampsersand_placeholder', 'amp', file_name);
-    file_name = replace_global('(', '', file_name);
-    file_name = replace_global(')', '', file_name);
-    file_name = replace_global('/>', '', file_name);
-    file_name = replace_global('/', '-slash', file_name);
-    file_name = replace_global('--', '-', file_name);
- */        
+        return $this->linkifiedForm;        
     }
     
     private function replaceDoubleHyphens() {
