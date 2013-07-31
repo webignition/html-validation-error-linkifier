@@ -11,6 +11,13 @@ class ReplaceAmpersandTest extends \PHPUnit_Framework_TestCase {
         $linkified = $linkifier->linkify('foo &amp; bar');
         
         $this->assertEquals('foo-amp-bar', $linkified);
-    }   
+    }  
+    
+    public function testReplaceAmperandAndAmperandEntity() {
+        $linkifier = new HtmlValidationErrorLinkifier();
+        $linkified = $linkifier->linkify('& did not start a character reference. (& probably should have been escaped as &amp;.)');
+        
+        $this->assertEquals('ampersand-did-not-start-a-character-reference-ampersand-probably-should-have-been-escaped-as-amp', $linkified);        
+    }
     
 }

@@ -33,11 +33,12 @@ class HtmlValidationErrorLinkifier {
     }
     
     private function replaceAmpersandPlaceholder() {
-        $this->linkifiedForm = str_replace('ampsersand_placeholder', 'amp', $this->linkifiedForm);
+        $this->linkifiedForm = str_replace('&', 'ampersand', $this->linkifiedForm);
+        $this->linkifiedForm = str_replace('ampersand_placeholder', 'amp', $this->linkifiedForm);
     }    
     
     private function replaceAmpWithAmpserandPlaceholder() {
-        $this->linkifiedForm = str_replace('&amp', 'ampsersand_placeholder', $this->linkifiedForm);
+        $this->linkifiedForm = str_replace('&amp', 'ampersand_placeholder', $this->linkifiedForm);
     }
     
     
