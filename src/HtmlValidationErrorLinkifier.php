@@ -82,10 +82,7 @@ class HtmlValidationErrorLinkifier
     private function getPlaceholders()
     {
         $placeholderMatches = array();
-
-        if (preg_match_all('/%[0-9]/', $this->normalForm, $placeholderMatches) === false) {
-            return array();
-        }
+        preg_match_all('/%[0-9]/', $this->normalForm, $placeholderMatches);
 
         return $placeholderMatches[0];
     }
