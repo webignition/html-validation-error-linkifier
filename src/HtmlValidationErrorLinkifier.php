@@ -2,16 +2,22 @@
 
 namespace webignition\HtmlValidationErrorLinkifier;
 
-class HtmlValidationErrorLinkifier {
-
+class HtmlValidationErrorLinkifier
+{
     const START_PLACEHOLDER_CHARACTER = 'x';
 
     private $normalForm = '';
     private $linkifiedForm = '';
 
-    public function linkify($normalForm, $parameters = null) {
+    /**
+     * @param string $normalForm
+     * @param array $parameters
+     * @return string
+     */
+    public function linkify($normalForm, $parameters = null)
+    {
         $this->normalForm = $normalForm;
-        $this->linkified = $normalForm;
+        $this->linkifiedForm = $normalForm;
 
         $this->replacePlaceholders($parameters);
         $this->replaceAmpWithAmpserandPlaceholder();
@@ -24,49 +30,57 @@ class HtmlValidationErrorLinkifier {
         return $this->linkifiedForm;
     }
 
-    private function replaceDoubleHyphens() {
+    private function replaceDoubleHyphens()
+    {
         while (substr_count($this->linkifiedForm, '--') > 0) {
             $this->linkifiedForm = str_replace('--', '-', $this->linkifiedForm);
         }
     }
 
-    private function replaceAmpersandPlaceholder() {
+    private function replaceAmpersandPlaceholder()
+    {
         $this->linkifiedForm = str_replace('&', 'ampersand', $this->linkifiedForm);
         $this->linkifiedForm = str_replace('ampersand_placeholder', 'amp', $this->linkifiedForm);
     }
 
-    private function replaceAmpWithAmpserandPlaceholder() {
+    private function replaceAmpWithAmpserandPlaceholder()
+    {
         $this->linkifiedForm = str_replace('&amp', 'ampersand_placeholder', $this->linkifiedForm);
     }
 
-
-    private function  replacePlaceholders($parameters = null) {
+    /**
+     * @param array $parameters
+     */
+    private function replacePlaceholders($parameters = null)
+    {
         $placeholders = $this->getPlaceholders();
         $placeholderValues = $this->getPlaceholderValues($parameters);
 
         $this->linkifiedForm = strtolower(str_replace($placeholders, $placeholderValues, $this->normalForm));
     }
 
-    private function replaceSlashes() {
+    private function replaceSlashes()
+    {
         $this->linkifiedForm = str_replace('/', '-slash-', $this->linkifiedForm);
     }
 
-    private function replaceSpaces() {
+    private function replaceSpaces()
+    {
         $this->linkifiedForm = str_replace(' ', '-', $this->linkifiedForm);
     }
 
-    private function removePunctuation() {
+    private function removePunctuation()
+    {
         $this->linkifiedForm = str_replace(array(
             ',', '.', ':', ';', '"', '(', ')','/>'
         ), '', $this->linkifiedForm);
     }
 
-
     /**
-     *
      * @return array
      */
-    private function getPlaceholders() {
+    private function getPlaceholders()
+    {
         $placeholderMatches = array();
 
         if (preg_match_all('/%[0-9]/', $this->normalForm, $placeholderMatches) === false) {
@@ -78,14 +92,20 @@ class HtmlValidationErrorLinkifier {
 
 
     /**
-     *
      * @return int
      */
-    private function getPlaceholderCount() {
+    private function getPlaceholderCount()
+    {
         return count($this->getPlaceholders());
     }
 
-    private function getPlaceholderValues($parameters = null) {
+    /**
+     * @param array $parameters
+     *
+     * @return array
+     */
+    private function getPlaceholderValues($parameters = null)
+    {
         $start = ord(self::START_PLACEHOLDER_CHARACTER);
         $placeholderCount = $this->getPlaceholderCount();
 
@@ -109,5 +129,4 @@ class HtmlValidationErrorLinkifier {
 
         return $placeholderValues;
     }
-
 }
