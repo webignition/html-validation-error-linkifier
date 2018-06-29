@@ -56,9 +56,11 @@ class HtmlValidationErrorLinkifier
      */
     private function replacePlaceholders(array $placeholders, $parameters = null)
     {
-        $placeholderValues = $this->getPlaceholderValues(count($placeholders), $parameters);
-
-        $this->linkifiedForm = strtolower(str_replace($placeholders, $placeholderValues, $this->normalForm));
+        $this->linkifiedForm = strtolower(str_replace(
+            $placeholders,
+            $this->getPlaceholderValues(count($placeholders), $parameters),
+            $this->normalForm
+        ));
     }
 
     private function replaceSlashes()
