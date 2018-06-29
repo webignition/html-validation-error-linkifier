@@ -20,7 +20,7 @@ class HtmlValidationErrorLinkifier
         $this->linkifiedForm = $normalForm;
 
         $this->replacePlaceholders($parameters);
-        $this->replaceAmpWithAmpserandPlaceholder();
+        $this->replaceAmpWithAmpersandPlaceholder();
         $this->removePunctuation();
         $this->replaceSpaces();
         $this->replaceSlashes();
@@ -43,7 +43,7 @@ class HtmlValidationErrorLinkifier
         $this->linkifiedForm = str_replace('ampersand_placeholder', 'amp', $this->linkifiedForm);
     }
 
-    private function replaceAmpWithAmpserandPlaceholder()
+    private function replaceAmpWithAmpersandPlaceholder()
     {
         $this->linkifiedForm = str_replace('&amp', 'ampersand_placeholder', $this->linkifiedForm);
     }
