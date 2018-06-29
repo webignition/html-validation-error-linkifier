@@ -12,7 +12,14 @@
         }
     ],
     "autoload": {
-        "psr-0": { "": "src/" }
+        "psr-4": {
+            "webignition\\HtmlValidationErrorLinkifier\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "webignition\\HtmlValidationErrorLinkifier\\": "tests/"
+        }
     },
     "scripts": {
         "test": "./vendor/bin/phpunit --colors=always",
