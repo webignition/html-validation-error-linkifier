@@ -19,7 +19,9 @@ class HtmlValidationErrorLinkifier
         $this->normalForm = $normalForm;
         $this->linkifiedForm = $normalForm;
 
-        $this->replacePlaceholders($parameters);
+        $placeholders = $this->getPlaceholders();
+
+        $this->replacePlaceholders($placeholders, $parameters);
         $this->replaceAmpWithAmpersandPlaceholder();
         $this->removePunctuation();
         $this->replaceSpaces();
@@ -49,12 +51,12 @@ class HtmlValidationErrorLinkifier
     }
 
     /**
+     * @param array $placeholders
      * @param array $parameters
      */
-    private function replacePlaceholders($parameters = null)
+    private function replacePlaceholders(array $placeholders, $parameters = null)
     {
-        $placeholders = $this->getPlaceholders();
-        $placeholderValues = $this->getPlaceholderValues($parameters);
+        $placeholderValues = $this->getPlaceholderValues(count($placeholders), $parameters);
 
         $this->linkifiedForm = strtolower(str_replace($placeholders, $placeholderValues, $this->normalForm));
     }
@@ -77,7 +79,7 @@ class HtmlValidationErrorLinkifier
     }
 
     /**
-     * @return array
+     * @return string[]
      */
     private function getPlaceholders()
     {
@@ -87,24 +89,15 @@ class HtmlValidationErrorLinkifier
         return $placeholderMatches[0];
     }
 
-
     /**
-     * @return int
-     */
-    private function getPlaceholderCount()
-    {
-        return count($this->getPlaceholders());
-    }
-
-    /**
+     * @param int $placeholderCount
      * @param array $parameters
      *
      * @return array
      */
-    private function getPlaceholderValues($parameters = null)
+    private function getPlaceholderValues($placeholderCount, $parameters = null)
     {
         $start = ord(self::START_PLACEHOLDER_CHARACTER);
-        $placeholderCount = $this->getPlaceholderCount();
 
         if ($placeholderCount > 3) {
             $start = $start - $placeholderCount + 3;
