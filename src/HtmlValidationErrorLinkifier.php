@@ -73,9 +73,7 @@ class HtmlValidationErrorLinkifier
 
     private function removePunctuation()
     {
-        $this->linkifiedForm = str_replace(array(
-            ',', '.', ':', ';', '"', '(', ')','/>'
-        ), '', $this->linkifiedForm);
+        $this->linkifiedForm = str_replace([',', '.', ':', ';', '"', '(', ')','/>'], '', $this->linkifiedForm);
     }
 
     /**
@@ -83,7 +81,7 @@ class HtmlValidationErrorLinkifier
      */
     private function getPlaceholders()
     {
-        $placeholderMatches = array();
+        $placeholderMatches = [];
         preg_match_all('/%[0-9]/', $this->normalForm, $placeholderMatches);
 
         return $placeholderMatches[0];
@@ -103,7 +101,7 @@ class HtmlValidationErrorLinkifier
             $start = $start - $placeholderCount + 3;
         }
 
-        $placeholderValues = array();
+        $placeholderValues = [];
 
         for ($index = $start; $index < $start + $placeholderCount; $index++) {
             $placeholderValues[] = chr($index);
